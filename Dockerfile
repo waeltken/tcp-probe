@@ -1,6 +1,7 @@
 FROM golang:1.20
-ENV PORT 3000
+
 EXPOSE 3000
+EXPOSE 6000
 
 WORKDIR /go/src/app
 COPY . .
