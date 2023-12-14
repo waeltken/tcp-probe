@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: build-and-deploy
+  labels:
+    app: build-and-deploy
+  namespace: namespace-workflow-1702560545407
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: build-and-deploy
+  template:
+    metadata:
+      labels:
+        app: build-and-deploy
+    spec:
+      containers:
+        - name: build-and-deploy
+          image: acrworkflow1702560545407.azurecr.io/image-workflow-1702560545407:latest
+          ports:
+            - containerPort: 3000
