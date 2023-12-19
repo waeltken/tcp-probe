@@ -13,6 +13,7 @@ env:
     DEPLOYMENT_MANIFEST_PATH: |
         manifests/deployment.yaml
         manifests/service.yaml
+        manifests/alb.yaml
 jobs:
     buildImage:
         permissions:
