@@ -40,9 +40,9 @@ metadata:
   namespace: namespace-workflow-1702560545407
 spec:
   targetRef:
-    group: gateway.networking.k8s.io
-    kind: HTTPRoute
-    name: tcp-test-route
+    group: ""
+    kind: Service
+    name: build-and-deploy
     namespace: namespace-workflow-1702560545407
   default:
     protocol: TCP
