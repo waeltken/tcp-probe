@@ -8,12 +8,12 @@ import (
 	"strconv"
 )
 
-func handleConnection(conn net.Conn, source string, port int) {
+func handleConnection(conn net.Conn) {
 	defer conn.Close()
-	log.Printf("TCP probe from %s on port %d", source, port)
+	log.Printf("TCP probe from %s on port %d", conn.RemoteAddr(), conn.LocalAddr().(*net.TCPAddr).Port)
 }
 
-func startListener(port int, source string) {
+func startListener(port int) {
 	address := ":" + strconv.Itoa(port)
 	ln, err := net.Listen("tcp", address)
 	if err != nil {
@@ -27,7 +27,7 @@ func startListener(port int, source string) {
 			log.Printf("failed to accept connection: %v", err)
 			continue
 		}
-		go handleConnection(conn, source, port)
+		go handleConnection(conn)
 	}
 }
 
@@ -38,8 +38,8 @@ func statusHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	go startListener(3000, "kubelet")
-	go startListener(6000, "ALB")
+	go startListener(3000)
+	go startListener(6000)
 	
 	http.HandleFunc("/", statusHandler)
 	log.Fatal(http.ListenAndServe(":8080", nil))
