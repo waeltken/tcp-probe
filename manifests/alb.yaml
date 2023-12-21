@@ -13,7 +13,6 @@ spec:
   - name: http-listener
     port: 80
     protocol: HTTP
-    hostname: alb.ms.waltken.de
     allowedRoutes:
       namespaces:
         from: All
@@ -26,8 +25,6 @@ metadata:
 spec:
   parentRefs:
   - name: tcp-test-gateway
-  hostnames:
-    - alb.ms.waltken.de
   rules:
   - backendRefs:
     - name: build-and-deploy
