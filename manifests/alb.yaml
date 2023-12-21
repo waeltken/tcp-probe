@@ -43,9 +43,9 @@ spec:
     namespace: tcp-probe-test
   default:
     protocol: TCP
-    # If you change the tcp-probe to port 8080, the health check will pass
+    # If you change the tcp-probe to port 9000, the health check will pass
     # You can see the TCP health check executes a GET request to the / endpoint
-    port: 9000
+    port: 6000
     interval: 10s
     timeout: 1s
     unhealthyThreshold: 3
