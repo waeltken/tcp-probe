@@ -1,8 +1,10 @@
 package main
 
 import (
+	"encoding/json"
 	"log"
 	"net"
+	"net/http"
 	"strconv"
 )
 
@@ -29,7 +31,16 @@ func startListener(port int, source string) {
 	}
 }
 
+func statusHandler(w http.ResponseWriter, r *http.Request) {
+		log.Printf("HTTP request from %s", r.RemoteAddr)
+    response := map[string]string{"status": "OK"}
+    json.NewEncoder(w).Encode(response)
+}
+
 func main() {
 	go startListener(3000, "kubelet")
-	startListener(6000, "ALB")
+	go startListener(6000, "ALB")
+	
+	http.HandleFunc("/", statusHandler)
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
