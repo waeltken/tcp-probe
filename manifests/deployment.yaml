@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
         - name: build-and-deploy
-          image: acrworkflow1702560545407.azurecr.io/image-workflow-1702560545407:latest
+          image: ghcr.io/waeltken/tcp-probe/tcp-probe:latest
           ports:
             - containerPort: 3000
