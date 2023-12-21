@@ -31,24 +31,27 @@ func startListener(port int) {
 	}
 }
 
-func statusHandler(w http.ResponseWriter, r *http.Request) {
-		log.Printf("HTTP request from %s", r.RemoteAddr)
-		log.Printf("%s %s %s", r.Method, r.URL, r.Proto)
-		log.Printf("Host: %s", r.Host)
-		for name, headers := range r.Header {
-			for _, h := range headers {
-				log.Printf("%v: %v", name, h)
-			}
+type statusHandler struct {
+	port int
+}
+
+func (sh *statusHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	log.Printf("HTTP request from %s to port %d", r.RemoteAddr, sh.port)
+	log.Printf("%s %s %s", r.Method, r.URL, r.Proto)
+	log.Printf("Host: %s", r.Host)
+	for name, headers := range r.Header {
+		for _, h := range headers {
+			log.Printf("%v: %v", name, h)
 		}
-    response := map[string]string{"status": "OK"}
-    json.NewEncoder(w).Encode(response)
+	}
+	response := map[string]string{"status": "OK"}
+	json.NewEncoder(w).Encode(response)
 }
 
 func main() {
 	go startListener(3000)
 	go startListener(6000)
-	
-	http.HandleFunc("/", statusHandler)
-	go http.ListenAndServe(":8080", nil)
-	http.ListenAndServe(":9000", nil)
+
+	go http.ListenAndServe(":8080", &statusHandler{port: 8080})
+	http.ListenAndServe(":9000", &statusHandler{port: 9000})
 }
