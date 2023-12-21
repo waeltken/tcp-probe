@@ -46,7 +46,7 @@ spec:
     namespace: tcp-probe-test
   default:
     protocol: TCP
-    port: 8080
+    port: 6000
     interval: 10s
     timeout: 1s
     unhealthyThreshold: 3
