@@ -49,5 +49,6 @@ func main() {
 	go startListener(6000)
 	
 	http.HandleFunc("/", statusHandler)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	go http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":9000", nil)
 }

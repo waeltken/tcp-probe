@@ -11,11 +11,3 @@ spec:
       protocol: TCP
       port: 80
       targetPort: 8080
-    - name: tcp-kube-health-check
-      protocol: TCP
-      port: 3000
-      targetPort: 3000
-    - name: tcp-alb-health-check
-      protocol: TCP
-      port: 6000
-      targetPort: 6000

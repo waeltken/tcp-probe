@@ -45,7 +45,7 @@ spec:
     protocol: TCP
     # If you change the tcp-probe to port 8080, the health check will pass
     # You can see the TCP health check executes a GET request to the / endpoint
-    port: 6000
+    port: 9000
     interval: 10s
     timeout: 1s
     unhealthyThreshold: 3
