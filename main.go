@@ -33,6 +33,13 @@ func startListener(port int) {
 
 func statusHandler(w http.ResponseWriter, r *http.Request) {
 		log.Printf("HTTP request from %s", r.RemoteAddr)
+		log.Printf("%s %s %s", r.Method, r.URL, r.Proto)
+		log.Printf("Host: %s", r.Host)
+		for name, headers := range r.Header {
+			for _, h := range headers {
+				log.Printf("%v: %v", name, h)
+			}
+		}
     response := map[string]string{"status": "OK"}
     json.NewEncoder(w).Encode(response)
 }
