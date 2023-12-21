@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net"
+	"strconv"
 )
 
 func handleConnection(conn net.Conn, source string, port int) {
@@ -10,31 +11,25 @@ func handleConnection(conn net.Conn, source string, port int) {
 	log.Printf("TCP probe from %s on port %d", source, port)
 }
 
-func main() {
-	ln1, err := net.Listen("tcp", ":3000")
+func startListener(port int, source string) {
+	address := ":" + strconv.Itoa(port)
+	ln, err := net.Listen("tcp", address)
 	if err != nil {
-		log.Printf("failed to listen on port 3000: %v", err)
-	}
-	go func() {
-		for {
-			conn, err := ln1.Accept()
-			if err != nil {
-				log.Printf("failed to accept connection: %v", err)
-			}
-			go handleConnection(conn, "kubelet", 3000)
-		}
-	}()
-
-	ln2, err := net.Listen("tcp", ":6000")
-	if err != nil {
-		log.Printf("failed to listen on port 6000: %v", err)
+		log.Printf("failed to listen on port %d: %v", port, err)
+		return
 	}
 
 	for {
-		conn, err := ln2.Accept()
+		conn, err := ln.Accept()
 		if err != nil {
 			log.Printf("failed to accept connection: %v", err)
+			continue
 		}
-		go handleConnection(conn, "ALB", 6000)
+		go handleConnection(conn, source, port)
 	}
+}
+
+func main() {
+	go startListener(3000, "kubelet")
+	startListener(6000, "ALB")
 }
