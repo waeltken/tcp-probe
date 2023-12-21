@@ -53,16 +53,12 @@ jobs:
             - buildImage
         steps:
             - uses: actions/checkout@v3
-            - uses: azure/login@92a5484dfaf04ca78a94597f4f19fea633851fa2
+            - uses: azure/login@v1
               name: Azure login
               with:
                 client-id: ${{ secrets.AZURE_CLIENT_ID }}
                 subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
                 tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-            - uses: azure/use-kubelogin@v1
-              name: Set up kubelogin for non-interactive login
-              with:
-                kubelogin-version: v0.0.25
             - uses: azure/aks-set-context@v3
               name: Get K8s context
               with:
