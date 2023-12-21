@@ -76,4 +76,4 @@ jobs:
                 action: deploy
                 images: ghcr.io/${{ github.repository_owner }}/tcp-probe/${{ env.CONTAINER_NAME }}:${{ github.sha }}
                 manifests: ${{ env.DEPLOYMENT_MANIFEST_PATH }}
-                namespace: namespace-workflow-1702560545407
+                namespace: tcp-probe-test

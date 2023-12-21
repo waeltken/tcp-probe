@@ -4,7 +4,7 @@ metadata:
   name: build-and-deploy
   labels:
     app: build-and-deploy
-  namespace: namespace-workflow-1702560545407
+  namespace: tcp-probe-test
 spec:
   replicas: 1
   selector:
