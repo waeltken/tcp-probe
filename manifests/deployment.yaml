@@ -20,3 +20,9 @@ spec:
           image: ghcr.io/waeltken/tcp-probe/tcp-probe:latest
           ports:
             - containerPort: 3000
+          readinessProbe:
+            tcpSocket:
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 3
+            failureThreshold: 1

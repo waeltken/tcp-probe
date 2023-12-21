@@ -4,7 +4,6 @@ metadata:
   name: build-and-deploy
   namespace: tcp-probe-test
 spec:
-  type: LoadBalancer
   selector:
     app: build-and-deploy
   ports:
@@ -16,3 +15,7 @@ spec:
       protocol: TCP
       port: 3000
       targetPort: 3000
+    - name: tcp
+      protocol: TCP
+      port: 6000
+      targetPort: 6000
